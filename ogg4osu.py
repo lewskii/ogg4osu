@@ -1,4 +1,4 @@
-import audio
+from . import audio
 from argparse import ArgumentParser
 
 def main():
