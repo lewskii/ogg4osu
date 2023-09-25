@@ -9,6 +9,8 @@ MAX_BITRATE = 208000
 __BASE_DELAY = 200
 
 def convert(infile: PathLike, outfile: PathLike):
+    """Convert an audio file to OGG Vorbis."""
+
     input_audio = (
         ffmpeg
         .input(infile)
