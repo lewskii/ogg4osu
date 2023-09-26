@@ -61,8 +61,3 @@ def _find_audio_stream(streams: list[dict]) -> dict:
     for stream in streams:
         if stream["codec_type"] == "audio":
             return stream
-        
-
-if __name__ == "__main__":
-    info = AudioInfo("test.ogg")
-    print(info.codec)
