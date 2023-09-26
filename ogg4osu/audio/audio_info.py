@@ -2,7 +2,7 @@
 
 Classes:
 
-AudioInfo: a container for information about audio files
+- AudioInfo: a container for information about audio files
 """
 import ffmpeg
 from os import PathLike
@@ -16,19 +16,13 @@ class AudioInfo:
     
     Instance variables:
 
-    codec: the codec the audio was encoded with
-
-    sample_rate: the sample rate of the audio in hertz
-
-    bit_rate: the bit rate of the file in bits per second
-
-    duration: the duration of the audio in seconds
-
-    size: the size of the file in bytes
-
-    path: the path to the file the the information concerns
-
-    json: the raw JSON outputted by ffprobe
+    - codec: the codec the audio was encoded with
+    - sample_rate: the sample rate of the audio in hertz
+    - bit_rate: the bit rate of the file in bits per second
+    - duration: the duration of the audio in seconds
+    - size: the size of the file in bytes
+    - path: the path to the file the the information concerns
+    - json: the raw JSON outputted by ffprobe
     """
 
     def __init__(self, file: PathLike) -> None:

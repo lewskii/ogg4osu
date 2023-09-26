@@ -2,7 +2,7 @@
 
 Functions:
 
-convert: convert an audio file to OGG Vorbis
+- convert: convert an audio file to OGG Vorbis
 """
 import ffmpeg
 from os import PathLike
@@ -18,9 +18,8 @@ def convert(infile: PathLike, outfile: PathLike) -> None:
 
     Arguments:
 
-    infile: the path to the file that will be converted
-
-    outfile: the path where the result of the conversion will be
+    - infile: the path to the file that will be converted
+    - outfile: the path the converted file will have
 
     Exceptions:
 
@@ -60,7 +59,7 @@ def __reasonable_sample_rate(original_sample_rate: int) -> int:
 
     Arguments:
 
-    original_sample_rate: the sample rate of the original audio file in hertz.
+    - original_sample_rate: the sample rate of the original audio file in hertz.
     """
     if original_sample_rate <= 48_000:
         return original_sample_rate

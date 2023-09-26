@@ -11,19 +11,21 @@ def main():
     )
 
     parser.add_argument(
-        "input",
-        help = "the name of the file you want to convert"
+        "source",
+        help = "the path to the file you want to convert"
     )
 
     parser.add_argument(
-        "output",
-        help = "the name of the converted file"
+        "destination",
+        nargs = '?',
+        default = None,
+        help = "the path the converted file will have (optional)"
     )
 
     args = parser.parse_args()
 
     try:
-        audio.convert(args.input, args.output)
+        audio.convert(args.source, args.destination)
     except ffmpegError as error:
         stderr = error.stderr.decode().strip()
         print("stderr:\n", stderr, sep='')
