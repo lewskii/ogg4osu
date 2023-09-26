@@ -32,7 +32,7 @@ def main():
         audio.convert(source, destination)
     except ffmpegError as error:
         stderr = error.stderr.decode().strip()
-        print("stderr:\n", stderr, sep='')
+        print(stderr)
 
 if __name__ == "__main__":
     main()
