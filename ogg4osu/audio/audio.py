@@ -1,5 +1,6 @@
 import ffmpeg
 from os import PathLike
+from .audio_info import AudioInfo
 
 # maximum enforced by the ranking criteria in bits per second
 MAX_BITRATE = 208_000
@@ -18,12 +19,14 @@ def convert(infile: PathLike, outfile: PathLike):
         .audio
         .filter('adelay', delays = __BASE_DELAY, all = 1) # delay all channels
     )
+
+    audio_info = AudioInfo(infile)
     
     output_audio = input_audio.output(
         outfile,
         acodec = 'libvorbis',
         aq = 6,
-        ar = 48_000
+        ar = __reasonable_sample_rate(audio_info.sample_rate)
     )
 
     output_audio.run(quiet=True, overwrite_output=True)
