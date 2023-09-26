@@ -6,7 +6,7 @@ from pathlib import Path
 class AudioInfo:
     """Information about an audio file."""
     def __init__(self, file: PathLike) -> None:
-        self.path = Path(file)
+        self.path = Path(file).resolve()
 
         probe_data = ffmpeg.probe(file)
         audio_stream = _find_audio_stream(probe_data["streams"])
