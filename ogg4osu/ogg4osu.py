@@ -1,7 +1,6 @@
 """The main logic of the program."""
 from . import audio
 from . import cli
-from argparse import ArgumentParser
 from ffmpeg import Error as ffmpegError
 from pathlib import Path
 
