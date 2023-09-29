@@ -95,13 +95,13 @@ class AudioFile:
 # the osu! editor doesn't like files with absolutely no delay
 __BASE_DELAY = 200
 
-def convert(infile: PathLike, outfile: PathLike) -> None:
+def convert(source: PathLike | AudioFile, destination: PathLike) -> None:
     """Convert an audio file to OGG Vorbis.
 
     Arguments:
 
-    - infile: the path to the file that will be converted
-    - outfile: the path the converted file will have
+    - source: the path to or a representation of the file that will be converted
+    - destination: the path the converted file will have
 
     Exceptions:
 
@@ -109,20 +109,21 @@ def convert(infile: PathLike, outfile: PathLike) -> None:
     happens because infile does not exist or the file it points to has no
     audio stream.
     """
-    _infile = AudioFile(infile)
+    if type(source) != AudioFile:
+        source = AudioFile(source)
     
     input_audio = (
         ffmpeg
-        .input(str(_infile.path))
+        .input(str(source.path))
         .audio
         .filter('adelay', delays = __BASE_DELAY, all = 1) # delay all channels
     )
 
     output_audio = input_audio.output(
-        str(outfile),
+        str(destination),
         acodec = 'libvorbis',
         aq = 6,
-        ar = _infile.converted_sample_rate
+        ar = source.converted_sample_rate
     )
 
     output_audio.run(quiet=True, overwrite_output=True)
