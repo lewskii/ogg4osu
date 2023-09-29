@@ -73,11 +73,13 @@ class AudioFile:
     def converted_sample_rate(self) -> int:
         """Return a reasonable sample rate to convert the file to.
 
-        Here, \"reasonable\" is meant in terms of file size; if the sample rate
-        of the file is 48 kHz or less, it will be returned as is. A higher
-        sample rate will be reduced to either 48 kHz or 41.1 kHz based on which
-        one it is a multiple of, because integer ratios are apparently ideal for
-        resampling.
+        Here, \"reasonable\" is meant in terms of file size and certain
+        considerations regarding resampling:
+        - If the sample rate of the file is 48 kHz or less, it will be returned
+        as is.
+        - A higher sample rate will be reduced to either 48 kHz or 41.1 kHz
+        based on which one it is a multiple of, because integer ratios are
+        apparently ideal for resampling.
         """
         if self.sample_rate <= 48_000:
             return self.sample_rate
