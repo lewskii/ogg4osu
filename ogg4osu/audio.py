@@ -71,7 +71,7 @@ class AudioFile:
 
     @property
     def converted_sample_rate(self) -> int:
-        """Return a reasonable sample rate to convert the file to.
+        """A reasonable sample rate to convert the file to.
 
         Here, \"reasonable\" is meant in terms of file size and certain
         considerations regarding resampling:
