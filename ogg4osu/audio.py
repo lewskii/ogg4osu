@@ -75,6 +75,9 @@ class AudioFile:
         self.duration = float(audio_stream["duration"])
         self.size = int(format["size"])
 
+    def __str__(self) -> str:
+        return self.path.name
+
     def converted_sample_rate(self) -> int:
         """Return a reasonable sample rate to convert the file to.
 
