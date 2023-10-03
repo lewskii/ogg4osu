@@ -37,6 +37,7 @@ class AudioFile:
 
     - converted_sample_rate: return the sample rate the file should be
     converted to
+    - is_rankable: return whether the file is rankable
     """
 
     @classmethod
@@ -96,6 +97,20 @@ class AudioFile:
             return 48_000
         
     def is_rankable(self) -> bool:
+        """Return whether the file is rankable based on its codec and bit rate.
+
+        According to the Ranking Criteria, a map's audio must be one of the
+        following:
+        - An OGG Vorbis file with a bitrate of 208 kbps or lower, or
+        - An MP3 file with a bitrate of 192 kbps or lower.
+
+        If the file matches one of these descriptions, the method returns True.
+        If the file uses a different codec or its bit rate is too high, the
+        method returns False.
+
+        Whether the file is good enough to be ranked is too complex of a matter
+        to evaluate here.
+        """
         match self.codec:
             case "vorbis":
                 return self.bit_rate <= OGG_MAX_BIT_RATE
