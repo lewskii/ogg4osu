@@ -9,11 +9,17 @@ def main():
     """Run ogg4osu with arguments from the command line."""
     args = cli.parse_args()
 
-    source = Path(args.source)
+    source = Path(args.source).resolve()
     if not args.destination:
         destination = source.with_suffix(".ogg")
+        if source == destination:
+            destination = destination.with_stem(source.stem + "_converted")
     else:
-        destination = Path(args.destination)
+        destination = Path(args.destination).resolve()
+        if source == destination:
+            print("The source and destination cannot be the same file.")
+            return
+
 
     try:
         source_file = AudioFile(source)
