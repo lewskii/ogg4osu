@@ -75,9 +75,8 @@ class AudioFile:
         self.duration = float(audio_stream["duration"])
         self.size = int(format["size"])
 
-    @property
     def converted_sample_rate(self) -> int:
-        """A reasonable sample rate to convert the file to.
+        """Return a reasonable sample rate to convert the file to.
 
         Here, \"reasonable\" is meant in terms of file size and certain
         considerations regarding resampling:
@@ -152,7 +151,7 @@ def convert(source: PathLike | AudioFile, destination: PathLike) -> None:
         str(destination),
         acodec = 'libvorbis',
         aq = 6,
-        ar = source.converted_sample_rate
+        ar = source.converted_sample_rate()
     )
 
     output_audio.run(quiet=True, overwrite_output=True)
