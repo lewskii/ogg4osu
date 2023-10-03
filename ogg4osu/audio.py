@@ -13,6 +13,11 @@ from os import PathLike
 from pathlib import Path
 
 
+# enforced by the ranking criteria
+OGG_MAX_BIT_RATE = 208_000
+MP3_MAX_BIT_RATE = 192_000
+
+
 class AudioFile:
     """Provides easy access to select information about an audio file.
 
@@ -89,6 +94,15 @@ class AudioFile:
         
         else:
             return 48_000
+        
+    def is_rankable(self) -> bool:
+        match self.codec:
+            case "vorbis":
+                return self.bit_rate <= OGG_MAX_BIT_RATE
+            case "mp3":
+                return self.bit_rate <= MP3_MAX_BIT_RATE
+            case _:
+                return False
 
 
 # the base amount of delay added to all converted files because
