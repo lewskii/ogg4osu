@@ -5,7 +5,7 @@ with open("./README.md") as readme:
 
 setuptools.setup(
     name = "ogg4osu",
-    version = "0.1.0",
+    version = "0.2.0",
     description = "Converts audio to OGG Vorbis for the purposes of osu!",
     long_description = long_description,
     long_description_content_type = "text/markdown",
