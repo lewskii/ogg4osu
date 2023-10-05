@@ -126,6 +126,46 @@ class AudioFile:
 # the osu! editor doesn't like files with absolutely no delay
 __BASE_DELAY = 200
 
+class Silence:
+    """A period of silence in an audio file."""
+    def __init__(self, start: float, duration: float) -> None:
+        self.start = start
+        self.duration = duration
+        self.end = start + duration
+
+    def __str__(self) -> str:
+        return f"silence from {self.start} to {self.end}"
+
+def detect_silence(source: AudioFile):
+    _, err = (
+        ffmpeg
+        .input(str(source.path))
+        .audio
+        .filter('silencedetect', duration = 0.1)
+        .output('pipe:', format = 'null')
+        .run(quiet=True)
+    )
+    err: str = err.decode()
+    err_lines = [line.strip() for line in err.split('\r')]
+    silence_detections = [
+        line.split("] ")[1]
+        for line in err_lines
+        if line.startswith("[silencedetect")
+    ]
+    starts = [
+        float(start.split()[1])
+        for start in silence_detections[0::2]
+    ]
+    durations = [
+        float(line.split()[4])
+        for line in silence_detections[1::2]
+    ]
+
+    return [
+        Silence(starts[i], durations[i])
+        for i in range(len(starts))
+    ]
+
 def convert(source: PathLike | AudioFile, destination: PathLike) -> None:
     """Convert an audio file to OGG Vorbis.
 

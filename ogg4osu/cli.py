@@ -15,6 +15,8 @@ def parse_args() -> Namespace:
     - source: the path to the file the user wants to convert
     - destination: the path the converted file will have (optional, None by
     default)
+    - silence: whether the program should just detect the silence in the input
+    file
     """
     parser = ArgumentParser(
         prog = "ogg4osu",
@@ -29,6 +31,12 @@ def parse_args() -> Namespace:
         nargs = '?',
         default = None,
         help = "the path the converted file will have (optional)"
+    )
+    parser.add_argument(
+        "-s",
+        "--silence",
+        help = "detect silence for testing",
+        action = "store_true"
     )
 
     return parser.parse_args()

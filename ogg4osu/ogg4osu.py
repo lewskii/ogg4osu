@@ -9,6 +9,13 @@ def main():
     """Run ogg4osu with arguments from the command line."""
     args = cli.parse_args()
 
+    if args.silence:
+        source_file = AudioFile(args.source)
+        silences = audio.detect_silence(source_file)
+        for silence in silences:
+            print(silence)
+        return
+
     source = Path(args.source).resolve()
     if not args.destination:
         destination = source.with_suffix(".ogg")
