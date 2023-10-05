@@ -158,3 +158,14 @@ def convert(source: PathLike | AudioFile, destination: PathLike) -> None:
     )
 
     output_audio.run(quiet=True, overwrite_output=True)
+
+    output_file = AudioFile(destination)
+
+    if not output_file.is_rankable():
+        output_audio = input_audio.output(
+            str(destination),
+            acodec = 'libvorbis',
+            aq = 5,
+            ar = source.converted_sample_rate()
+        )
+        output_audio.run(quiet=True, overwrite_output=True)
