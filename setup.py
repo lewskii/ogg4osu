@@ -21,7 +21,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.11",
         "Topic :: Utilities"
     ],
-    keywords = "osu! convert music audio ogg",
+    keywords = "osu! mapping convert music audio ogg",
     packages = setuptools.find_packages(),
     install_requires = ["ffmpeg-python"]
 )
